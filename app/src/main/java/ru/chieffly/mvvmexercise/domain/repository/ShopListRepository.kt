@@ -1,5 +1,6 @@
 package ru.chieffly.mvvmexercise.domain.repository
 
+import androidx.lifecycle.LiveData
 import ru.chieffly.mvvmexercise.domain.model.ShopItem
 
 /**
@@ -16,5 +17,5 @@ interface ShopListRepository {
 
     fun getShopItem(shopItemId: Int): ShopItem
 
-    fun getShopList(): List<ShopItem>
+    fun getShopList(): LiveData<List<ShopItem>>
 }

@@ -1,6 +1,5 @@
 package ru.chieffly.mvvmexercise.ui
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.chieffly.mvvmexercise.data.ShopListRepositoryImpl
@@ -20,10 +19,14 @@ class MainViewModel : ViewModel() {
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
 
-    val shopListLiveData = MutableLiveData<List<ShopItem>>()
+    val shopListLiveData = getShopListUseCase.execute()
 
-    fun getShopList() {
-        val list = getShopListUseCase.execute()
-        shopListLiveData.value = list
+    fun deleteShopItem(shopItem: ShopItem) {
+        deleteShopItemUseCase.execute(shopItem = shopItem)
+    }
+
+    fun changeEnableState(shopItem: ShopItem) {
+        val newItem = shopItem.copy(enabled = !shopItem.enabled)
+        editShopItemUseCase.execute(newItem)
     }
 }

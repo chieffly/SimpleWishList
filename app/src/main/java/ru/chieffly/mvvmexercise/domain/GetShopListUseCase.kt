@@ -1,5 +1,6 @@
 package ru.chieffly.mvvmexercise.domain
 
+import androidx.lifecycle.LiveData
 import ru.chieffly.mvvmexercise.domain.model.ShopItem
 import ru.chieffly.mvvmexercise.domain.repository.ShopListRepository
 
@@ -8,7 +9,7 @@ import ru.chieffly.mvvmexercise.domain.repository.ShopListRepository
  **/
 
 class GetShopListUseCase(private val shopListRepository: ShopListRepository) {
-    fun execute(): List<ShopItem> {
+    fun execute(): LiveData<List<ShopItem>> {
         return shopListRepository.getShopList()
     }
 }

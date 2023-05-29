@@ -2,45 +2,38 @@ package ru.chieffly.mvvmexercise
 
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import ru.chieffly.mvvmexercise.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.RecyclerView
+import ru.chieffly.mvvmexercise.domain.model.ShopItem
 import ru.chieffly.mvvmexercise.ui.MainViewModel
+import ru.chieffly.mvvmexercise.ui.ShopListAdapter
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-
+    private lateinit var shopListAdapter: ShopListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupRecyclerView()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.shopListLiveData.observe(this) {
-            Log.d ("TAG", it.toString())
+            Log.d("TAG", it.toString())
+            shopListAdapter.shopList = it
         }
+    }
 
-        viewModel.getShopList()
 
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        val navView: BottomNavigationView = binding.navView
-//
-//        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+    private fun setupRecyclerView() {
+        val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
+        shopListAdapter = ShopListAdapter()
+        rvShopList.adapter = shopListAdapter
+
+        shopListAdapter.onShopItemLongClickListener = object : ShopListAdapter.OnShopItemLongClickListener {
+            override fun onShopItemOnClick(shopItem: ShopItem) {
+                viewModel.changeEnableState(shopItem)
+            }
+        }
     }
 }
