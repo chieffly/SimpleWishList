@@ -6,8 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import ru.chieffly.mvvmexercise.domain.model.ShopItem
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.chieffly.mvvmexercise.ui.MainViewModel
+import ru.chieffly.mvvmexercise.ui.ShopItemActivity
 import ru.chieffly.mvvmexercise.ui.ShopListAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
             Log.d("TAG", it.toString())
             shopListAdapter.submitList(it)
         }
+        val btnAdd = findViewById<FloatingActionButton>(R.id.btn_add_shop_item)
+        btnAdd.setOnClickListener {
+            val intent = ShopItemActivity.newIntentAddItem(this)
+            startActivity(intent)
+        }
     }
 
 
@@ -35,7 +41,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.changeEnableState(it)
         }
         shopListAdapter.onShopItemClickListener = {
-            Log.d("MainActivity", it.toString())
+            val intent = ShopItemActivity.newIntentEditItem(this, it.id)
+            startActivity(intent)
         }
 
         val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
@@ -51,5 +58,5 @@ class MainActivity : AppCompatActivity() {
 
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(rvShopList)
-}
+    }
 }
