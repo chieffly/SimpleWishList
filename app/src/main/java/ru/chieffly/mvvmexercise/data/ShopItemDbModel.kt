@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
  *Created by Bryantsev Anton on 22.05.2023.
  **/
 
-@Entity(tableName = "shop_item")
+@Entity(tableName = "shop_items")
 data class ShopItemDbModel(
     val name: String,
     val count: Int,
