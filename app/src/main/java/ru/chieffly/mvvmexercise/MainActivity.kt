@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.chieffly.mvvmexercise.domain.model.ShopItem
 import ru.chieffly.mvvmexercise.ui.MainViewModel
@@ -30,10 +31,25 @@ class MainActivity : AppCompatActivity() {
         shopListAdapter = ShopListAdapter()
         rvShopList.adapter = shopListAdapter
 
-        shopListAdapter.onShopItemLongClickListener = object : ShopListAdapter.OnShopItemLongClickListener {
-            override fun onShopItemOnClick(shopItem: ShopItem) {
-                viewModel.changeEnableState(shopItem)
+        shopListAdapter.onShopItemLongClickListenerLambda = {
+            viewModel.changeEnableState(it)
+        }
+        shopListAdapter.onShopItemClickListener = {
+            Log.d("MainActivity", it.toString())
+        }
+
+        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = shopListAdapter.shopList[viewHolder.adapterPosition]
+                viewModel.deleteShopItem(item)
             }
         }
-    }
+
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(rvShopList)
+}
 }
