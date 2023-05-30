@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
@@ -27,11 +29,97 @@ class ShopItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_item)
-
         parseIntent()
         viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
-
         initViews()
+        addTextChangeListeners()
+        launchRightMode()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.errorInputName.observe(this) {
+            if (it) {
+                tilName.error = getString(R.string.error_input_name)
+            } else {
+                tilName.error = null
+            }
+        }
+
+        viewModel.errorInputCount.observe(this) {
+            if (it) {
+                tilCount.error = getString(R.string.error_input_count)
+            } else {
+                tilCount.error = null
+            }
+        }
+        viewModel.shouldCloseScreen.observe(this) {
+            finish()
+        }
+    }
+
+    private fun addTextChangeListeners() {
+        etName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.resetErrorInputName()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+        etCount.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.resetErrorInputCount()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+
+    private fun launchRightMode() {
+        when (screenMode) {
+            MODE_EDIT -> launchEditMode()
+            MODE_ADD -> launchAddMode()
+        }
+    }
+
+    private fun launchAddMode() {
+        viewModel.errorInputName.observe(this) {
+            if (it) {
+                tilName.error = "Ошибка ввода"
+            } else {
+                tilName.error = null
+            }
+        }
+
+        viewModel.errorInputCount.observe(this) {
+            if (it) {
+                tilCount.error = "Ошибка ввода"
+            } else {
+                tilCount.error = null
+            }
+        }
+
+        btnSave.setOnClickListener {
+            viewModel.addShopItem(etName.text?.toString(), etCount.text?.toString())
+        }
+    }
+
+    private fun launchEditMode() {
+        viewModel.getShopItem(shopItemId)
+        viewModel.shopItem.observe(this) {
+            etName.setText(it.name)
+            etCount.setText(it.count.toString())
+        }
+
+        btnSave.setOnClickListener {
+            viewModel.editShopItem(etName.text?.toString(), etCount.text?.toString())
+        }
+
     }
 
     private fun initViews() {
