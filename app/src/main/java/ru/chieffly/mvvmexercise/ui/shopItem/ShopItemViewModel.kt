@@ -1,4 +1,4 @@
-package ru.chieffly.mvvmexercise.ui
+package ru.chieffly.mvvmexercise.ui.shopItem
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package ru.chieffly.mvvmexercise
+package ru.chieffly.mvvmexercise.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ru.chieffly.mvvmexercise.ui.MainViewModel
-import ru.chieffly.mvvmexercise.ui.ShopItemActivity
-import ru.chieffly.mvvmexercise.ui.ShopListAdapter
+import ru.chieffly.mvvmexercise.R
+import ru.chieffly.mvvmexercise.ui.main.MainViewModel
+import ru.chieffly.mvvmexercise.ui.shopItem.ShopItemActivity
+import ru.chieffly.mvvmexercise.ui.shopItem.ShopListAdapter
 
 class MainActivity : AppCompatActivity() {
 

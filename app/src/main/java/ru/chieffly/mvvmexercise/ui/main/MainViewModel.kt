@@ -1,4 +1,4 @@
-package ru.chieffly.mvvmexercise.ui
+package ru.chieffly.mvvmexercise.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -12,10 +12,10 @@
         android:theme="@style/Theme.MVVMExercise"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.ShopItemActivity"
+            android:name=".ui.shopItem.ShopItemActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name" >
             <intent-filter>

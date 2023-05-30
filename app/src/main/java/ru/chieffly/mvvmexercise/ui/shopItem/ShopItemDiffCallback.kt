@@ -1,4 +1,4 @@
-package ru.chieffly.mvvmexercise.ui
+package ru.chieffly.mvvmexercise.ui.shopItem
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.chieffly.mvvmexercise.domain.model.ShopItem

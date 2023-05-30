@@ -1,4 +1,4 @@
-package ru.chieffly.mvvmexercise.ui
+package ru.chieffly.mvvmexercise.ui.shopItem
 
 import android.content.Context
 import android.content.Intent

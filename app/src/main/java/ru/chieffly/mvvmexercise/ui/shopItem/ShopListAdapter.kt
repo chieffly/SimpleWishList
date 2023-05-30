@@ -1,4 +1,4 @@
-package ru.chieffly.mvvmexercise.ui
+package ru.chieffly.mvvmexercise.ui.shopItem
 
 import android.view.LayoutInflater
 import android.view.View
