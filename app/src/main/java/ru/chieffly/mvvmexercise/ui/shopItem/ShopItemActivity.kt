@@ -7,7 +7,7 @@ import android.os.Bundle
 import ru.chieffly.mvvmexercise.R
 import ru.chieffly.mvvmexercise.domain.model.ShopItem
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
     private var screenMode = MODE_UNKNOWN
     private var shopItemId = ShopItem.UNDEFINED_ID
 
@@ -26,6 +26,7 @@ class ShopItemActivity : AppCompatActivity() {
             MODE_ADD -> ShopItemFragment.newInstanceAddItem()
             else -> throw RuntimeException("Unknown")
         }
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.shop_item_container, fragment)
             .commit()
@@ -48,6 +49,10 @@ class ShopItemActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onEditFinished() {
+        finish()
     }
 
     companion object {
