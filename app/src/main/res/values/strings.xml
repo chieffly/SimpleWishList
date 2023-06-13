@@ -5,4 +5,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="error_input_name">Ошибка ввода имени</string>
     <string name="error_input_count">Ошибка ввода числа</string>
+    <string name="add_item_cd">Add item</string>
 </resources>
