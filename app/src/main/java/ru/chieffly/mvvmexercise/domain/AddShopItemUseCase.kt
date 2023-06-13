@@ -9,7 +9,7 @@ import ru.chieffly.mvvmexercise.domain.repository.ShopListRepository
 
 class AddShopItemUseCase(private val shopListRepository: ShopListRepository) {
 
-    fun execute(item: ShopItem) {
+    suspend operator fun invoke(item: ShopItem) {
         shopListRepository.addShopItem(item)
     }
 

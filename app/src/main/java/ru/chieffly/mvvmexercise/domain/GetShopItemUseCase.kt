@@ -9,7 +9,7 @@ import ru.chieffly.mvvmexercise.domain.repository.ShopListRepository
 
 class GetShopItemUseCase(private val shopListRepository: ShopListRepository) {
 
-    fun execute(itemId: Int): ShopItem {
+    suspend operator fun invoke(itemId: Int): ShopItem {
         return shopListRepository.getShopItem(itemId)
     }
 }

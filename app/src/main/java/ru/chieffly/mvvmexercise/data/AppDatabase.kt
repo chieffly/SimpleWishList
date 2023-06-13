@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
  **/
 
 @Database(entities = [ShopItemDbModel::class], version = 1, exportSchema = false)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun shopListDao(): ShopListDao
 
@@ -20,8 +20,8 @@ abstract class AppDatabase: RoomDatabase() {
         private val LOCK = Any()
         private const val DB_NAME = "shop_item1fds.db"
 
-        fun getInstance (application: Application): AppDatabase {
-            INSTANSE?.let{
+        fun getInstance(application: Application): AppDatabase {
+            INSTANSE?.let {
                 return it
             }
             synchronized(LOCK) {

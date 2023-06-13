@@ -9,13 +9,13 @@ import ru.chieffly.mvvmexercise.domain.model.ShopItem
 
 interface ShopListRepository {
 
-    fun addShopItem(shopItem: ShopItem)
+    suspend fun addShopItem(shopItem: ShopItem)
 
-    fun deleteShopItem(shopItem: ShopItem)
+    suspend fun deleteShopItem(shopItem: ShopItem)
 
-    fun editShopItem(shopItem: ShopItem)
+    suspend fun editShopItem(shopItem: ShopItem)
 
-    fun getShopItem(shopItemId: Int): ShopItem
+    suspend fun getShopItem(shopItemId: Int): ShopItem
 
     fun getShopList(): LiveData<List<ShopItem>>
 }

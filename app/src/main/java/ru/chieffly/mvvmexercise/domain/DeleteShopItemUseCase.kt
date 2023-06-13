@@ -8,7 +8,7 @@ import ru.chieffly.mvvmexercise.domain.repository.ShopListRepository
  **/
 
 class DeleteShopItemUseCase(private val shopListRepository: ShopListRepository) {
-    fun execute(shopItem: ShopItem) {
+    suspend operator fun invoke(shopItem: ShopItem) {
         shopListRepository.deleteShopItem(shopItem)
     }
 
