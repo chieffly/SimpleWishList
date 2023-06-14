@@ -2,7 +2,7 @@ package ru.chieffly.mvvmexercise.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.map
 import ru.chieffly.mvvmexercise.domain.model.ShopItem
 import ru.chieffly.mvvmexercise.domain.repository.ShopListRepository
 
@@ -33,10 +33,8 @@ class ShopListRepositoryImpl(application: Application) : ShopListRepository {
     }
 
     override fun getShopList(): LiveData<List<ShopItem>> =
-        MediatorLiveData<List<ShopItem>>().apply {
-            addSource(shopListDao.getShopList()) {
-                value = mapper.mapListDbModelToListEntity(it)
-            }
+        shopListDao.getShopList().map {
+            mapper.mapListDbModelToListEntity(it)
         }
 
 }
